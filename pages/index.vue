@@ -1,6 +1,7 @@
 <template>
     <div>
-        <LayoutsPostsWrapper />
+        <HomeHeroSection />
+        <LazyHomeRecentPostSection :hydrate-on-idle="true" />
     </div>
 </template>
 

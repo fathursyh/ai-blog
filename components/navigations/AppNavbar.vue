@@ -10,10 +10,10 @@
             title="Company"
             class="inline-flex items-center"
           >
-            <Icon name="lucide:book-open-text" class="text-white text-xl" />
+            <Icon name="lucide:pen-tool" class="text-white text-xl" />
             <span
-              class="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase"
-              >Company</span
+              class="ml-2 text-xl font-bold tracking-widest text-gray-100 uppercase font-oswald"
+              >InkCraft</span
             >
           </NuxtLink>
           <ul class="items-center hidden space-x-8 lg:flex">
