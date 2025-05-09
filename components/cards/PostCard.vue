@@ -1,5 +1,5 @@
 <template>
-     <div class="p-8 bg-white border rounded shadow-sm">
+     <div class="p-8 bg-white border border-gray-500 rounded shadow-sm">
           <p class="mb-3 text-xs font-semibold tracking-wide uppercase">
             <a href="/" class="transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800" aria-label="Category">weekend</a>
             <span class="text-gray-600">— 1 Feb 2020</span>

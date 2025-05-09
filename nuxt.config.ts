@@ -19,7 +19,7 @@ export default defineNuxtConfig({
       }
     }
   },
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   css: ['~/assets/css/main.css'],
   modules: ['@nuxt/icon', '@nuxt/eslint', '@nuxtjs/google-fonts', '@nuxt/image'],
   googleFonts: {
@@ -34,10 +34,10 @@ export default defineNuxtConfig({
     ]
   },
   routeRules: {
-    '/' : {prerender: true},
-    '/login' : {prerender: true},
-    '/posts': {swr: 3600},
+    // '/' : {prerender: true},
+    // '/login' : {prerender: true},
+    '/posts': {swr: true},
     '/dashboard/**': { ssr: false },
     '/api/**': { cors: true },
-  }
+  },
 })

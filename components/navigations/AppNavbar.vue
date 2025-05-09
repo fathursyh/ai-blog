@@ -18,49 +18,32 @@
           </NuxtLink>
           <ul class="items-center hidden space-x-8 lg:flex">
             <li>
-              <a
+              <NuxtLink
                 href="/"
-                aria-label="Our product"
-                title="Our product"
+                aria-label="Home"
+                title="Home"
                 class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-                >Product</a
+                >Home</NuxtLink
+              >
+            </li>
+            <li>
+              <NuxtLink
+                href="/posts"
+                aria-label="Blogs"
+                title="Blogs"
+                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                >Blogs</NuxtLink
               >
             </li>
             <li>
               <a
-                href="/"
-                aria-label="Our product"
-                title="Our product"
-                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-                >Features</a
-              >
-            </li>
-            <li>
-              <a
-                href="/"
-                aria-label="Product pricing"
-                title="Product pricing"
-                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-                >Pricing</a
-              >
-            </li>
-            <li>
-              <a
-                href="/"
-                aria-label="About us"
-                title="About us"
-                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-                >About us</a
-              >
-            </li>
-            <li>
-              <a
-                href="/"
+                href="/login"
                 class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                aria-label="Sign up"
-                title="Sign up"
+                aria-label="Sign in"
+                title="Sign in"
               >
-                Sign up
+                Sign in
+                <Icon name="lucide:log-in" class="ms-2" />
               </a>
             </li>
           </ul>
@@ -135,50 +118,32 @@
                 </div>
                 <nav>
                   <ul class="space-y-4">
+            <li>
+              <NuxtLink
+                href="/"
+                aria-label="Home"
+                title="Home"
+                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                >Home</NuxtLink
+              >
+            </li>
+            <li>
+              <NuxtLink
+                href="/posts"
+                aria-label="Blogs"
+                title="Blogs"
+                class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                >Blogs</NuxtLink
+              >
+            </li>
                     <li>
                       <a
-                        href="/"
-                        aria-label="Our product"
-                        title="Our product"
-                        class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >Product</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="/"
-                        aria-label="Our product"
-                        title="Our product"
-                        class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >Features</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="/"
-                        aria-label="Product pricing"
-                        title="Product pricing"
-                        class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >Pricing</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="/"
-                        aria-label="About us"
-                        title="About us"
-                        class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >About us</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="/"
+                        href="/login"
                         class="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                        aria-label="Sign up"
-                        title="Sign up"
+                        aria-label="Sign in"
+                        title="Sign in"
                       >
-                        Sign up
+                        Sign in
                       </a>
                     </li>
                   </ul>

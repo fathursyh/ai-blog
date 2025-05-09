@@ -67,12 +67,11 @@
   }
   
   .custom-button--secondary {
-    background-color: #a99237; 
-    color: white;
+    background-color: #f3d047; 
   }
   
   .custom-button--secondary:hover {
-    background-color: #b7a768;
+    background-color: #e3cb69;
   }
   
   .custom-button--ghost {
