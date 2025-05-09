@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pt-20">
         <LazyFormsSearchPosts />
         <LayoutsPostsWrapper />
         <aside class="sm:max-w-xl md:max-w-full lg:max-w-screen-xl lg:px-8 md:px-24 px-4 mx-auto flex justify-center py-6">

@@ -45,5 +45,4 @@
         await navigateTo({path: '/posts', query: {page: page.value + 1}});
 
     }
-
 </script>
