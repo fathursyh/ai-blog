@@ -40,7 +40,6 @@ export default defineNuxtConfig({
     ]
   },
   routeRules: {
-    '/' : {prerender: true},
     '/login' : {prerender: true},
     '/posts': {swr: true},
     '/dashboard/**': { ssr: false },

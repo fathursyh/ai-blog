@@ -71,7 +71,7 @@
 </template>
 
 <script setup lang="ts">
-  const { register } = useAuth()
+  const { register } = useAuth();
 
     const inputData = reactive({
         email: '',
