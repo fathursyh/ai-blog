@@ -11,13 +11,13 @@
 
         <form @submit.prevent="loginHandler">
             <div class="w-full mt-4">
-                <input v-model="inputData.email" class="block w-full px-4 py-2 mt-2 text-gray-50 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" :class="{'outline-1 outline-red-600' : errorLogin}" type="email" placeholder="Email Address" aria-label="Email Address" autocomplete="email" autofocus maxlength="100" @change="errorLogin = false">
+                <input id="email" v-model="inputData.email" class="block w-full px-4 py-2 mt-2 text-gray-50 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" :class="{'outline-1 outline-red-600' : errorLogin}" type="email" placeholder="Email Address" aria-label="Email Address" autocomplete="email" maxlength="100" @change="errorLogin = false">
                 <p v-if="errorLogin" class="text-xs ps-1 mt-1 text-red-600/80">Invalid credentials</p>
 
             </div>
 
             <div class="w-full mt-4">
-                <input v-model="inputData.password" class="block w-full px-4 py-2 mt-2 text-gray-50 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" :class="{'outline-1 outline-red-600' : errorLogin}" type="password" placeholder="Password" aria-label="Password" maxlength="100" @change="errorLogin = false">
+                <input id="password" v-model="inputData.password" class="block w-full px-4 py-2 mt-2 text-gray-50 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" :class="{'outline-1 outline-red-600' : errorLogin}" type="password" placeholder="Password" aria-label="Password" maxlength="100" @change="errorLogin = false">
                 <p v-if="errorLogin" class="text-xs ps-1 mt-1 text-red-600/80">Invalid credentials</p>
             </div>
 
@@ -55,4 +55,7 @@
             return;
         }
     }
+    onMounted(() => {
+        document.getElementById('email')?.focus();
+    })
 </script>

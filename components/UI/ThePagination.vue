@@ -6,7 +6,7 @@
         </svg>
     </button>
 
-    <button v-for="count in navigationButtons" :key="count" class="hidden cursor-pointer min-w-12 px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md sm:inline dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200" :class="{'bg-green-700!': count === page}" @click="gotoPage(count)">
+    <button v-for="count in navigationButtons" :key="count" class="hidden cursor-pointer min-w-12 px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md sm:inline dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200" :class="{'bg-blue-600!': count === page}" @click="gotoPage(count)">
         {{ count }}
     </button>
 
