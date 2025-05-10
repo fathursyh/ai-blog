@@ -38,17 +38,30 @@
                 </NuxtLink
               >
             </li>
-            <li>
-              <NuxtLink
-                to="/login"
-                class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                aria-label="Sign in"
-                title="Sign in"
-              >
-                Sign in
-                <Icon name="lucide:log-in" class="ms-2" />
-              </NuxtLink>
-            </li>
+            <Transition name="fade" mode="out-in">
+              <li v-if="user === undefined">
+                <NuxtLink
+                  to="/login"
+                  class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                  aria-label="Sign in"
+                  title="Sign in"
+                >
+                <Icon name="lucide:log-in" class="me-2" />
+                  Sign in
+                </NuxtLink>
+              </li>
+              <li v-else>
+                <NuxtLink
+                  to="/dashboard"
+                  class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                  aria-label="Dashboard"
+                  title="Dashboard"
+                >
+                <Icon name="lucide:user" class="me-2" />
+                  Dashboard
+                </NuxtLink>
+              </li>
+            </Transition>
           </ul>
           <div class="lg:hidden">
             <button
@@ -145,12 +158,12 @@
     </div>
   </template>
   
-  <script>
-  export default {
-    data() {
-      return {
-        isMenuOpen: false,
-      };
-    },
-  };
-  </script>
+<script setup lang="ts">
+import type { User } from '@supabase/supabase-js';
+
+  const isMenuOpen = ref(false);
+  const user = ref<User | undefined>(undefined)
+  onMounted(() => {
+    user.value = useAuth().user.value!;
+  })
+</script>

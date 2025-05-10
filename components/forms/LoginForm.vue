@@ -46,7 +46,7 @@
             const data = await login(inputData.email, inputData.password);
             if (data) {
                 showAlert();
-                await navigateTo({path: '/dashboard'});
+                await navigateTo({path: '/'});
             }
         } catch(err) {
             console.log(err);
