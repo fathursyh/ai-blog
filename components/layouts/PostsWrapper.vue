@@ -12,15 +12,17 @@
 <script setup lang="ts">
   const isLoading = ref(true);
   const page = computed(() => Number(useRoute().query.page));
+  const search = computed(() => useRoute().query.search?.toString());
   const posts = computed(() => {
     return usePost().allPosts;
   })
   onMounted(() => {
     usePost().getAllPosts(page.value).then(()=> {isLoading.value = false});
   });
-  watch(page, () => {
+  
+  watch([page, search], () => {
     isLoading.value = true;
-    usePost().getAllPosts(page.value).then(()=> {isLoading.value = false});
+    usePost().getAllPosts(page.value, search.value).then(()=> {isLoading.value = false});
   })
 
 </script>
