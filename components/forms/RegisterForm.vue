@@ -12,10 +12,12 @@
                     v-model="inputData.email"
                     placeholder="michael@gmail.com"
                   type="text"
-                  class="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                  class="flex-grow w-full h-12 px-4 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                   name="email"
                   autocomplete="on"
+                  max="100"
                 >
+                <p v-if="errorMsg.email" class="text-xs ps-1 text-red-500">{{ errorMsg.email }}</p>
               </div>
               <div class="mb-1 sm:mb-2">
                 <label for="fullName" class="inline-block mb-1 font-medium">Full name</label>
@@ -26,6 +28,7 @@
                   type="text"
                   class="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                   name="fullName"
+                  maxlength="100"
                 >
               </div>
               <div class="mb-1 sm:mb-2">
@@ -37,7 +40,9 @@
                   type="password"
                   class="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                   name="password"
+                  minlength="8"
                 >
+                <p v-if="errorMsg.password" class="text-xs ps-1 text-red-500">{{ errorMsg.password }}</p>
               </div>
               <div class="mb-1 sm:mb-2">
                 <label for="confirmPassword" class="inline-block mb-1 font-medium">Confirm password</label>
@@ -48,7 +53,9 @@
                   type="password"
                   class="flex-grow w-full h-12 px-4 mb-2 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
                   name="confirmPassword"
+                  minlength="8"
                 >
+                <p v-if="errorMsg.confirmPassword" class="text-xs ps-1 text-red-500">{{ errorMsg.confirmPassword }}</p>
               </div>
               <div class="mt-4 mb-2 sm:mb-4">
               <UIButton variant="primary" class="w-full" type="submit" :disabled="isLoading">
@@ -64,6 +71,7 @@
 </template>
 
 <script setup lang="ts">
+  const { register } = useAuth()
 
     const inputData = reactive({
         email: '',
@@ -71,11 +79,29 @@
         password: '',
         confirmPassword: '',
     });
+    const errorMsg = reactive({
+        email: '',
+        password: '',
+        confirmPassword: '',
+    });
     const isLoading = ref(false);
 
-    const registerHandler = () => {
+    const registerHandler = async() => {
         isLoading.value = true;
-        console.log(inputData);
+        try {
+          await register(inputData.email, inputData.fullName, inputData.password, inputData.confirmPassword);
+          showAlert();
+          await navigateTo({path: '/dashboard'});
+
+        } catch(err) {
+            if((err as {cause: string}).cause === 'confirmPassword') {
+                errorMsg.password = err as string;
+                errorMsg.confirmPassword = err as string;
+                isLoading.value = false;
+                return;
+            }
+            alert("Something's wrong. Please try again later.")
+        }
     }
 
 </script>

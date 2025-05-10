@@ -29,7 +29,8 @@
 </template>
 
 <script setup lang="ts">
-    
+
+    inject('supabase');
     const inputData = reactive({
         email: '',
         password: '',
@@ -38,5 +39,4 @@
     const loginHandler = () => {
         console.log(inputData);
     }
-
 </script>
