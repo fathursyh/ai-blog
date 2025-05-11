@@ -42,7 +42,7 @@ export default defineNuxtConfig({
   routeRules: {
     '/login' : { prerender: true, appMiddleware: 'before-page' },
     '/posts': { swr: true },
-    '/dashboard/**': { ssr: false },
+    '/dashboard/**': { ssr: false, appMiddleware: 'before-page' },
     '/api/**': { cors: true, },
   },
 })

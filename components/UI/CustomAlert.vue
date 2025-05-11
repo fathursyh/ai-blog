@@ -1,7 +1,7 @@
 <template>
     <Teleport to="#teleports">
         <Transition name="fade" mode="out-in">
-            <div v-if="notif" class="flex w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 fixed bottom-6 right-6">
+            <div v-if="notif" class="flex w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 fixed bottom-6 right-6 z-50">
                 <div class="flex items-center justify-center w-12 bg-emerald-500">
                     <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
                         <path
