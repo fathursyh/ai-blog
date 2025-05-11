@@ -38,9 +38,9 @@
                 </NuxtLink
               >
             </li>
-            <Transition name="fade" mode="out-in">
-              <li v-if="user === null">
-                <NuxtLink
+              <li>
+                <NuxtLink 
+                  v-show="useAuth().user.value === null"
                   to="/login"
                   class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                   aria-label="Sign in"
@@ -49,9 +49,8 @@
                 <Icon name="lucide:log-in" class="me-2" />
                   Sign in
                 </NuxtLink>
-              </li>
-              <li v-else>
                 <NuxtLink
+                  v-show="useAuth().user.value !== null"
                   to="/dashboard"
                   class="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                   aria-label="Dashboard"
@@ -61,7 +60,6 @@
                   Dashboard
                 </NuxtLink>
               </li>
-            </Transition>
           </ul>
           <div class="lg:hidden">
             <button
@@ -159,11 +157,5 @@
   </template>
   
 <script setup lang="ts">
-import type { User } from '@supabase/supabase-js';
-
   const isMenuOpen = ref(false);
-  const user = ref<User | null>(null)
-  onMounted(async() => {
-    user.value = useAuth().user.value!;
-  })
 </script>

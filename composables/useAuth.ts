@@ -3,7 +3,8 @@ import type { User } from "@supabase/supabase-js"
 export const useAuth = () => {
   const { $supabase } = useNuxtApp();
   const user = useState<User | null >('user', () => null);
- 
+  const expiry = useCookie('expiryDate')
+
   // Register
   const register = async (email: string, fullName: string, password: string, confirmPassword: string) => {
     if (password !== confirmPassword) throw new Error('Password and confirm password are not match.', {cause: 'confirmPassword'});
@@ -17,7 +18,8 @@ export const useAuth = () => {
       }
     });
     if (error) throw error;
-    user.value = data.user
+    user.value = data.user;
+    setCookieExpiry();
     logoutTimer(data.session!.expires_in * 1000);
     return data;
   };
@@ -30,6 +32,7 @@ export const useAuth = () => {
     });
     if (error) throw error
     user.value = data.user;
+    setCookieExpiry();
     logoutTimer(data.session.expires_in * 1000);
     return data;
   };
@@ -41,29 +44,29 @@ export const useAuth = () => {
     user.value = null;
   };
 
-  // timed logout 1 hour (3600)
-  const logoutTimer = (expires_in: number) => {
-    const timer = setTimeout(async() => {
-      await logout();
-      await navigateTo({path: '/'});
-      clearTimeout(timer);
-    }, expires_in);
-  };
-
   // persist login from localStorage
   const getUserFromSession = async() => {
+    const today = new Date();
     const persistedUser = await JSON.parse(localStorage.getItem('sb-supabase')!);
     if (persistedUser === null) {
-      logout();
+      await logout();
       return;
     };
-    if (isSessionExpired(persistedUser.expires_at!)) {
-      logout();
+    if (new Date(expiry.value!) < today) {
+      await logout();
       return;
     };
     const {data} = await $supabase.auth.setSession({access_token: persistedUser.access_token, refresh_token: persistedUser.refresh_token});
+    setCookieExpiry();
     user.value = data.user;
-    logoutTimer(data.session!.expires_in * 1000);
+    logoutTimer(data.session!.expires_in! * 1000);
+  };
+
+   const logoutTimer = (expires_in: number) => {
+    const timer = setTimeout(() => {
+        clearTimeout(timer);
+        getUserFromSession();
+    }, expires_in);
   };
   return {
     user,
