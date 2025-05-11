@@ -1,29 +1,16 @@
-<template>
-  <div>
-    <editor-content :editor="editor" class="border p-4 bg-white rounded shadow" />
-  </div>
-</template>
-
-<script setup>
-// npm install @tiptap/vue-3 @tiptap/starter-kit
-import { ref, onBeforeUnmount } from 'vue'
-import { Editor, EditorContent } from '@tiptap/vue-3'
-import StarterKit from '@tiptap/starter-kit'
-
-const editor = ref(new Editor({
-  extensions: [StarterKit],
-  content: '<p>Hello, start writing your post here...</p>',
-}))
-
-onBeforeUnmount(() => {
-  editor.value.destroy()
-})
+<script setup lang="ts">
+  import Editor from '@tinymce/tinymce-vue';
+  const config = useRuntimeConfig();
 </script>
 
-<style scoped>
-/* Optional styling */
-.ProseMirror {
-  min-height: 200px;
-  outline: none;
-}
-</style>
+<template>
+    <Editor
+      v-model="usePost().newPost.value.body"
+      class="min-h-[60vh]"
+      :api-key="config.public.editorKey"
+      :init="{
+        plugins: 'lists link image table wordcount preview accordion',
+        toolbar: 'undo redo styles fontsize | forecolor bold italic underline strikethrough | numlist bullist align outdent indent lineheight | table image accordion preview'
+      }"
+    />
+</template>

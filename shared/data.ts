@@ -1,0 +1,22 @@
+export const tags = [
+  "Lifestyle",
+  "Personal",
+  "Technology",
+  "Sports",
+  "Science",
+  "Health",
+  "Travel",
+  "Food",
+  "Business",
+  "Entertainment",
+  "Education",
+  "Finance",
+  "Culture",
+  "Art",
+  "News",
+  "Politics",
+  "Environment",
+  "Fashion",
+  "Parenting",
+  "Relationships"
+];
