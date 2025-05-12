@@ -3,23 +3,25 @@ import type { PostInterface } from "~/shared/types/postInterface";
 export const usePost = () => {
     const { $supabase } = useNuxtApp();
     const defaultEmpty = {
+        id: undefined,
         title: "",
         slug: "",
         tags_id: 1,
         body: "",
     };
-    const newPost = useState<{ title: string; slug: string; tags_id: number; body: string }>("newPost", () => ({
+    const newPost = useState<{ id: string | undefined; title: string; slug: string; tags_id: number; body: string }>("newPost", () => ({
+        id: undefined,
         title: "",
         slug: "",
         tags_id: 1,
         body: "",
     }));
+    const image = useState<File | undefined>("imageHeader", () => undefined);
 
     const clearInput = () => {
         newPost.value = defaultEmpty;
         image.value = undefined;
     };
-    const image = useState<File | undefined>("imageHeader", () => undefined);
     const allPosts = useState<PostInterface[]>("posts", () => []);
     const recentPosts = useState<PostInterface[]>("recent", () => []);
     const pageCount = useState("page", () => 0);
@@ -50,19 +52,19 @@ export const usePost = () => {
     };
 
     const getRecentPosts = async () => {
-        const { data, error } = await $supabase.from("posts").select("*, tags_id (name), user_id (name, occupation)").order("created_at", { ascending: false }).limit(6);
+        const { data, error } = await $supabase.from("posts").select("*, tags_id (id, name), user_id (name, occupation)").order("created_at", { ascending: false }).limit(6);
         if (error) return;
         recentPosts.value = data;
     };
 
     const getPostDetail = async (slug: string) => {
-        const { data, error } = await $supabase.from("posts").select("*, tags_id (name), user_id (name, occupation)").eq("slug", slug).single();
+        const { data, error } = await $supabase.from("posts").select("*, tags_id (id, name), user_id (name, occupation)").eq("slug", slug).single();
         if (error) throw showError({ statusCode: 404, message: "Post not found." });
         data.image_url = $supabase.storage.from("header-image").getPublicUrl(data.image_url).data.publicUrl;
         postDetail.value = data;
     };
 
-    // create new post
+    // create and edit post
     const createNewPost = async () => {
         try {
             let imageUrl: string | undefined;
@@ -73,12 +75,15 @@ export const usePost = () => {
                 if (error) throw error;
                 imageUrl = data?.path;
             }
-
-            const { error } = await $supabase.from("posts").insert({
-                ...newPost.value,
-                image_url: imageUrl,
-                user_id: useAuth().user.value?.id,
-            });
+            // ! edit also here
+            const { error } = await $supabase.from("posts").upsert(
+                {
+                    ...newPost.value,
+                    image_url: imageUrl,
+                    user_id: useAuth().user.value?.id,
+                },
+                { ignoreDuplicates: false, onConflict: "id" }
+            );
             if (error) throw error;
             // ? clear input
             clearInput();
@@ -89,6 +94,14 @@ export const usePost = () => {
         }
     };
 
+    // delete post
+    const deletePost = async (id: string, imageURL: string) => {
+        const {error} = await $supabase.from("posts").delete().eq("id", id);
+        if (error) return false;
+        await $supabase.storage.from("header-image").remove([`${imageURL}`]);
+        return true;
+    };
+
     // dashboard
     const getUserRecentPost = async () => {
         const user = JSON.parse(localStorage.getItem("sb-supabase")!)?.user;
@@ -96,7 +109,7 @@ export const usePost = () => {
         if (error) return [];
         return data;
     };
-    const publishPost = async (id : string, isPublished: boolean) => {
+    const publishPost = async (id: string, isPublished: boolean) => {
         const { error } = await $supabase.from("posts").update({ published: !isPublished }).eq("id", id);
         if (error) {
             alert(error);
@@ -117,6 +130,7 @@ export const usePost = () => {
         getRecentPosts,
         getPostDetail,
         createNewPost,
+        deletePost,
         getUserRecentPost,
         publishPost,
     };

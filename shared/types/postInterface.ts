@@ -10,6 +10,7 @@ export interface PostInterface {
     created_at: string,
     updated_at: string,
     tags_id: {
+        id: number,
         name: string
     },
     image_url: string,

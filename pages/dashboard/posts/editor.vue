@@ -38,8 +38,10 @@
                     >
                 </div>
                 <UIButton class="w-full mt-2 shadow">Post</UIButton>
-                {{ isDirty }}
-                <div v-if="imageUrl" class="mt-4 w-full overflow-hidden">
+                <div v-if="imageUrl" class="mt-4 w-full overflow-hidden cursor-pointer relative group">
+                    <div class="absolute w-full h-full bg-black/70 hidden place-items-center group-hover:grid">
+                        <UIButton variant="secondary" @click="clearImage">Remove</UIButton>
+                    </div>
                     <img :src="imageUrl" alt="Preview" class="w-full h-52 object-contain rounded shadow-md border border-gray-700">
                 </div>
             </form>
@@ -72,6 +74,12 @@
         } else {
             imageUrl.value = null;
         }
+    }
+    function clearImage() {
+        const file = document.getElementById('image')!;
+        (file as HTMLInputElement).value = '';
+        imageUrl.value = '';
+        usePost().image.value = undefined;
     }
 
     const slugTitle = () => {
@@ -112,6 +120,18 @@
     
     onBeforeMount(() => {
         window.addEventListener("beforeunload", beforeUnloadHandler);
+    });
+
+    onMounted(async() => {
+        if(useRoute().query.edit) {
+            await usePost().getPostDetail(useRoute().query.edit as string);
+            usePost().newPost.value.id = usePost().postDetail.value!.id;
+            usePost().newPost.value.title = usePost().postDetail.value!.title;
+            usePost().newPost.value.slug = usePost().postDetail.value!.slug;
+            usePost().newPost.value.tags_id = usePost().postDetail.value!.tags_id.id;
+            usePost().newPost.value.body = usePost().postDetail.value!.body!;
+            imageUrl.value = usePost().postDetail.value?.image_url;
+        }
     });
 
     onBeforeUnmount(() => {
