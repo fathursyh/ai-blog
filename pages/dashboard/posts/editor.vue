@@ -112,9 +112,9 @@
                 const confirmLeave = window.confirm('You have unsaved changes. Are you sure you want to leave?')
                 if (!confirmLeave) return next(false);
                 usePost().clearInput();
-                isDirty.value = false;
             }
         }
+        isDirty.value = false;
         next();
     });
     
@@ -124,12 +124,14 @@
 
     onMounted(async() => {
         if(useRoute().query.edit) {
+            isDirty.value = true;
             await usePost().getPostDetail(useRoute().query.edit as string);
             usePost().newPost.value.id = usePost().postDetail.value!.id;
             usePost().newPost.value.title = usePost().postDetail.value!.title;
             usePost().newPost.value.slug = usePost().postDetail.value!.slug;
             usePost().newPost.value.tags_id = usePost().postDetail.value!.tags_id.id;
             usePost().newPost.value.body = usePost().postDetail.value!.body!;
+            if (usePost().postDetail.value?.image_url.length === 83) return;
             imageUrl.value = usePost().postDetail.value?.image_url;
         }
     });
