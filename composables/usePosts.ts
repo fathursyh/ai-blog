@@ -2,12 +2,23 @@ import type { PostInterface } from "~/shared/types/postInterface";
 
 export const usePost = () => {
     const { $supabase } = useNuxtApp();
+    const defaultEmpty = {
+         title: "",
+        slug: "",
+        tags_id: 1,
+        body: "",
+    }
     const newPost = useState<{ title: string; slug: string; tags_id: number; body: string }>("newPost", () => ({
         title: "",
         slug: "",
         tags_id: 1,
         body: "",
     }));
+
+    const clearInput = () => {
+        newPost.value = defaultEmpty;
+        image.value = undefined;
+    }
     const image = useState<File | undefined>('imageHeader', () => undefined);
     const allPosts = useState<PostInterface[]>("posts", () => []);
     const recentPosts = useState<PostInterface[]>("recent", () => []);
@@ -51,7 +62,6 @@ export const usePost = () => {
 
     // create new post
     const createNewPost = async () => {
-      // todo: add slug logic
         try {
             let imageUrl: string | undefined;
             if (image.value !== undefined) {
@@ -68,6 +78,8 @@ export const usePost = () => {
               user_id: useAuth().user.value?.id
             });
             if (error) throw error;
+            // ? clear input
+            clearInput();
             return true;
         } catch (err) {
             console.log(err);
@@ -77,6 +89,7 @@ export const usePost = () => {
 
     return {
         newPost,
+        clearInput,
         image,
         pageCount,
         allPosts,

@@ -2,7 +2,7 @@
     <section class="p-12">
         <h1 class="text-left font-bold text-2xl pb-2 mb-6 border-b border-dashed">Create a new post</h1>
         <div class="max-w-screen-xl flex gap-4 justify-between">
-            <form @submit.prevent="postHandler">
+            <form @submit.prevent="postHandler" @change="isDirty = true">
                 <div class="mb-2">
                     <label for="title" class="block text-sm">Title</label>
                     <input
@@ -12,6 +12,7 @@
                         class="block w-full px-4 py-2 mt-1 text-gray-700 border rounded-lg border-gray-600 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         placeholder="Living in 2025"
                         required
+                        @change="slugTitle"
                     >
                 </div>
                 <div class="mb-2">
@@ -37,16 +38,18 @@
                     >
                 </div>
                 <UIButton class="w-full mt-2 shadow">Post</UIButton>
+                {{ isDirty }}
                 <div v-if="imageUrl" class="mt-4 w-full overflow-hidden">
                     <img :src="imageUrl" alt="Preview" class="w-full h-52 object-contain rounded shadow-md border border-gray-700">
                 </div>
             </form>
-            <UITextEditor />
+            <UITextEditor @change="isDirty = true" />
         </div>
     </section>
 </template>
 
 <script setup lang="ts">
+    import slugify from "slugify";
     import { tags } from "~/shared/data";
     definePageMeta({
         layout: "dashboard-layout",
@@ -54,6 +57,7 @@
     });
 
     const imageUrl = ref();
+    const isDirty = ref(false);
 
     function previewImage(event: Event) {
         const target = event.target as HTMLInputElement;
@@ -70,6 +74,10 @@
         }
     }
 
+    const slugTitle = () => {
+       usePost().newPost.value.slug = slugify(usePost().newPost.value.title, {lower: true}) + '-' + new Date().getMilliseconds();
+    }
+
     const postHandler = async() => {
         const result = await usePost().createNewPost();
         if (!result) {
@@ -79,4 +87,33 @@
         showAlert();
         return navigateTo('/dashboard');
     }
+
+
+    const beforeUnloadHandler = (event: Event) => {
+        if (isDirty.value) {
+            event.preventDefault();
+            return "";
+        }
+    };
+
+    const router = useRouter();
+    router.beforeEach((to, from, next) => {
+        if (isDirty.value) {
+            const confirmLeave = window.confirm('You have unsaved changes. Are you sure you want to leave?')
+            if (!confirmLeave) return next(false);
+            usePost().clearInput();
+        }
+        next();
+        isDirty.value = false;
+    });
+    
+    onBeforeMount(() => {
+        window.addEventListener("beforeunload", beforeUnloadHandler);
+    });
+
+    onBeforeUnmount(() => {
+        window.removeEventListener("beforeunload", beforeUnloadHandler);
+        usePost().clearInput();
+    });
+
 </script>

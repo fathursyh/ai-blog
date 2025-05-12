@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import Editor from '@tinymce/tinymce-vue';
   const config = useRuntimeConfig();
+  defineEmits(['change']);
 </script>
 
 <template>
@@ -12,5 +13,6 @@
         plugins: 'lists link image table wordcount preview accordion',
         toolbar: 'undo redo styles fontsize | forecolor bold italic underline strikethrough | numlist bullist align outdent indent lineheight | table image accordion preview'
       }"
+      @change="$emit('change')"
     />
 </template>
