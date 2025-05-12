@@ -84,8 +84,9 @@
             alert('something is wrong!');
             return;
         };
+        isDirty.value = false;
         showAlert();
-        return navigateTo('/dashboard');
+        return window.location.assign('/dashboard');
     }
 
 
@@ -98,13 +99,15 @@
 
     const router = useRouter();
     router.beforeEach((to, from, next) => {
-        if (isDirty.value) {
-            const confirmLeave = window.confirm('You have unsaved changes. Are you sure you want to leave?')
-            if (!confirmLeave) return next(false);
-            usePost().clearInput();
+        if (from.name === 'dashboard-posts-editor') {
+            if (isDirty.value === true) {
+                const confirmLeave = window.confirm('You have unsaved changes. Are you sure you want to leave?')
+                if (!confirmLeave) return next(false);
+                usePost().clearInput();
+                isDirty.value = false;
+            }
         }
         next();
-        isDirty.value = false;
     });
     
     onBeforeMount(() => {

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen w-fullbg-gray-100 p-12">
+  <div class="min-h-screen w-fullbg-gray-100 p-12 pb-24">
     <!-- Header -->
     <div class="mb-6">
       <h1 class="text-3xl font-semibold text-gray-800">Your Dashboard</h1>
@@ -31,36 +31,14 @@
     </div>
 
     <!-- Recent Posts -->
-    <div class="bg-white p-6 rounded shadow">
-      <h3 class="text-lg font-semibold text-gray-700 mb-4">Recent Posts</h3>
-      <ul class="divide-y divide-gray-200">
-        <li v-for="(post, index) in recentPosts" :key="index" class="py-3">
-          <div class="flex justify-between items-center">
-            <div>
-              <p class="text-gray-800 font-medium">{{ post.title }}</p>
-              <p class="text-sm text-gray-500">Published on {{ post.date }}</p>
-            </div>
-            <p class="text-sm text-gray-500">{{ post.views }} views</p>
-          </div>
-        </li>
-      </ul>
-    </div>
+    <DashboardRecentPosts />
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
    definePageMeta({
         layout: 'dashboard-layout',
         pageTransition: {css: true, mode: 'out-in', name: 'fade'},
     });
 
-    const recentPosts = [
-    { title: 'Understanding Async/Await in Vue', date: 'May 8, 2025', views: 320 },
-    { title: 'My Blogging Workflow', date: 'May 2, 2025', views: 198 },
-    { title: 'Why I Switched to Nuxt 3', date: 'Apr 25, 2025', views: 450 }
-    ]
 </script>
-
-<style scoped>
-/* Add any custom styles here */
-</style>

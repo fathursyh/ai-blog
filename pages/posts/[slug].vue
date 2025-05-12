@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
     <section class="bg-gray-50 text-gray-800 font-sans leading-relaxed mt-14">
         <div v-if="!isLoading" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col lg:flex-row gap-12">
@@ -5,9 +6,9 @@
             <main class="lg:flex-1">
                 <article class="bg-white shadow rounded-lg p-6 min-h-[78.2vh]">
                     <img
-                        src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1050&q=80"
+                        :src="post?.image_url"
                         alt="Blog Post Image"
-                        class="rounded-lg w-full h-64 object-cover mb-6"
+                        class="rounded-lg w-full h-64 object-contain mb-6"
                     >
                     <header class="mb-4">
                         <h4 class="text-gray-500">{{ post?.tags_id.name }}</h4>
@@ -25,9 +26,7 @@
                             <span class="text-gray-400 italic">{{ post?.user_id.occupation }}</span>
                         </div>
                     </header>
-                    <section class="prose prose-gray max-w-none">
-                        {{ post?.body }}
-                    </section>
+                    <section class="prose prose-gray max-w-none" v-html="post?.body" />
                 </article>
             </main>
             <!-- Aside Section -->
@@ -61,3 +60,4 @@
         isLoading.value = false;
     });
 </script>
+

@@ -57,6 +57,10 @@
     });
 
     onMounted(async() => {
+        if (usePost().recentPosts.value.length > 0) {
+            isLoading.value = false;
+            return;
+        }
         await usePost().getRecentPosts();
         isLoading.value = false;
     })

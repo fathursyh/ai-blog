@@ -11,5 +11,7 @@ export interface PostInterface {
     updated_at: string,
     tags_id: {
         name: string
-    }
+    },
+    image_url: string,
+    published: boolean
 }
