@@ -49,12 +49,15 @@
   
   <style scoped>
   .custom-button {
-    padding: 10px 20px;
+    padding: 10px 0px;
     border-radius: 5px;
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .custom-button--primary {

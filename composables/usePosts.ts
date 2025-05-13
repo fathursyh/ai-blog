@@ -26,6 +26,7 @@ export const usePost = () => {
     const recentPosts = useState<PostInterface[]>("recent", () => []);
     const pageCount = useState("page", () => 0);
     const postDetail = useState<PostInterface | null>("detail", () => null);
+    const userPosts = useState<PostInterface[]>("user-posts", () => []);
 
     // fetching section
     const getPageCount = async (search = "") => {
@@ -117,6 +118,21 @@ export const usePost = () => {
         }
         showAlert();
     };
+    
+    // fetch user posts
+    const getAllUserPosts = async (page: number, search = "") => {
+        const user = JSON.parse(localStorage.getItem("sb-supabase")!)?.user;
+        getPageCount(search);
+        const offset = (page - 1) * 10;
+        const { data, error } = await $supabase
+            .from("posts")
+            .select("*, tags_id (name)").eq('user_id', user.id)
+            .ilike("title", `%${search}%`)
+            .order("created_at", { ascending: false })
+            .range(offset, offset + 9);
+        if (error) return;
+        allPosts.value = data;
+    };
 
     return {
         newPost,
@@ -126,6 +142,7 @@ export const usePost = () => {
         allPosts,
         recentPosts,
         postDetail,
+        userPosts,
         getAllPosts,
         getRecentPosts,
         getPostDetail,
@@ -133,5 +150,6 @@ export const usePost = () => {
         deletePost,
         getUserRecentPost,
         publishPost,
+        getAllUserPosts,
     };
 };

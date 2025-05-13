@@ -24,6 +24,9 @@
     const pageCount = computed(() => {
         return usePost().pageCount.value;
     });
+    const props = defineProps<{
+        section : string
+    }>()
     const navigationButtons = computed(() => {
         if (pageCount.value < 5) return pageCount.value;
         return [
@@ -36,14 +39,14 @@
     const prevPage = async() => {
         if (page.value < 2) return;
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-        await navigateTo({path: '/posts', query: {page: page.value - 1, search: useRoute().query.search}});
+        await navigateTo({path: props.section, query: {page: page.value - 1, search: useRoute().query.search}});
     }
     const nextPage = async() => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-        await navigateTo({path: '/posts', query: {page: page.value + 1, search: useRoute().query.search}});
+        await navigateTo({path: props.section, query: {page: page.value + 1, search: useRoute().query.search}});
     }
     const gotoPage = async(count : number) => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-        await navigateTo({path: '/posts', query: {page: count, search: useRoute().query.search}});
+        await navigateTo({path: props.section, query: {page: count, search: useRoute().query.search}});
     }
 </script>
