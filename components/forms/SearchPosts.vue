@@ -7,7 +7,10 @@
 
 <script setup lang="ts">
     const search = ref('');
+    const props = defineProps<{
+        section: string
+    }>()
     const searchHandler = async() => {
-        await navigateTo({path: '/posts', query: {page: "1", search: search.value}})
+        await navigateTo({path: props.section, query: {page: "1", search: search.value}})
     }
 </script>

@@ -59,16 +59,21 @@
 
         <p class="flex items-center px-4 -mx-2">
             <img class="object-cover mx-2 rounded-full h-9 w-9" src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="avatar">
-            <span class="mx-2 font-medium text-gray-800 dark:text-gray-200">John Doe</span>
+            <span class="mx-2 font-medium text-gray-800 dark:text-gray-200">{{ userName?.user.user_metadata.fullName  }}</span>
         </p>
     </div>
 </aside>
 </template>
 
 <script setup lang="ts">
-    
+    const userName = ref<{user: {user_metadata: {fullName: string}}} | null>(null);
     const logoutUser = async() => {
         await useAuth().logout();
         return navigateTo('/');
     }
+
+
+    onMounted(async function() {
+        userName.value = await JSON.parse(localStorage.getItem('sb-supabase')!);
+    });
 </script>
