@@ -1,10 +1,11 @@
 <template>
-    <aside class="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700 fixed">
-    <NuxtLink to="/">
-        <Icon name="lucide:pen-tool" class="text-gray-400 text-xl" />
-    </NuxtLink>
+    <aside class="flex flex-col h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700" @click="$emit('click-show')">
 
-    <div class="relative mt-6">
+    <button class="cursor-pointer w-1/4 group" title="Toggle sidebar">
+        <Icon name="lucide:pen-tool" class="text-gray-400 text-xl group-hover:text-blue-500 transition-all duration-200" :class="{'scale-x-[-1]' : !show}" />
+    </button>
+
+    <div class="relative mt-6 hidden" :class="{'hidden' : !show}">
         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
             <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
                 <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -14,7 +15,7 @@
         <input type="text" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" placeholder="Search">
     </div>
 
-    <div class="flex flex-col justify-between flex-1 mt-6">
+    <div class="flex flex-col justify-between flex-1 mt-6" :class="{'hidden' : !show}">
         <nav>
             <NuxtLink to="/dashboard" class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" active-class="bg-gray-800">
                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,6 +51,10 @@
 
                 <span class="mx-4 font-medium">Settings</span>
             </NuxtLink>
+            <NuxtLink to="/" class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" active-class="bg-gray-800">
+                <Icon name="lucide:house" />
+                <span class="mx-4 font-medium">Homepage</span>
+            </NuxtLink>
              <button class="flex items-center cursor-pointer px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-red-200 hover:text-red-700 w-full" @click="logoutUser">
                 <Icon name="lucide:log-out" />
 
@@ -66,12 +71,15 @@
 </template>
 
 <script setup lang="ts">
+    defineProps<{
+        show: boolean
+    }>();
+    defineEmits(['click-show'])
     const userName = ref<{user: {user_metadata: {fullName: string}}} | null>(null);
     const logoutUser = async() => {
         await useAuth().logout();
         return navigateTo('/');
     }
-
 
     onMounted(async function() {
         userName.value = await JSON.parse(localStorage.getItem('sb-supabase')!);

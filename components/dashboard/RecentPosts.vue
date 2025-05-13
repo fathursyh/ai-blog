@@ -5,7 +5,7 @@
             <li v-for="(post) in posts" :key="post.id" class="py-3">
                 <div class="flex justify-between items-center">
                     <div>
-                        <NuxtLink :to="`/posts/${post.slug}`" class="text-gray-800 font-medium hover:text-blue-500">{{ post.title }}</NuxtLink>
+                        <NuxtLink :to="`/posts/${post.slug}`" class="text-gray-800 font-medium hover:text-blue-500 line-clamp-2">{{ post.title }}</NuxtLink>
                         <p class="text-sm text-gray-500">Published on {{ new Date(post?.created_at).toLocaleDateString('en-EN', {dateStyle: 'medium'}) }}</p>
                     </div>
                     <div class="flex gap-4 items-center">
@@ -21,17 +21,20 @@
 
 <script setup lang="ts">
     import type { PostInterface } from '~/shared/types/postInterface';
+    const emit = defineEmits(['update']);
+    
     const posts = ref<PostInterface[]>([]);
-
     const handlePublish = async(id: string, isPublished: boolean) => {
         const windowConfirm = confirm(isPublished ? 'Draft this post?' : 'Publish this post?');
         if (!windowConfirm) return;
+        emit('update');
         await usePost().publishPost(id, isPublished);
         posts.value = await usePost().getUserRecentPost();
     }
     const deletePost = async(id: string, url: string) => {
         const windowConfirm = confirm('Delete this post?');
         if (!windowConfirm) return;
+        emit('update');
         const res = await usePost().deletePost(id, url);
         if (!res) {
             alert("Something is wrong!");

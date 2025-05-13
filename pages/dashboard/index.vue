@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen w-fullbg-gray-100 p-12 pb-24">
+  <div class="min-h-screen w-full 2xl:max-w-screen-xl mx-auto p-4 lg:p-12 pb-24">
     <!-- Header -->
     <div class="mb-6">
       <h1 class="text-3xl font-semibold text-gray-800">Your Dashboard</h1>
@@ -10,11 +10,11 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
       <div class="bg-white p-4 rounded shadow">
         <p class="text-sm text-gray-500">Published Posts</p>
-        <h2 class="text-2xl font-bold text-gray-800">24</h2>
+        <h2 class="text-2xl font-bold text-gray-800">{{ stats[0]?.count }}</h2>
       </div>
       <div class="bg-white p-4 rounded shadow">
         <p class="text-sm text-gray-500">Drafts</p>
-        <h2 class="text-2xl font-bold text-gray-800">5</h2>
+        <h2 class="text-2xl font-bold text-gray-800">{{ stats[1]?.count }}</h2>
       </div>
       <div class="bg-white p-4 rounded shadow">
         <p class="text-sm text-gray-500">Total Views</p>
@@ -31,7 +31,7 @@
     </div>
 
     <!-- Recent Posts -->
-    <DashboardRecentPosts />
+    <DashboardRecentPosts @update="getStatistics" />
   </div>
 </template>
 
@@ -40,5 +40,14 @@
         layout: 'dashboard-layout',
         pageTransition: {css: true, mode: 'out-in', name: 'fade'},
     });
+
+    const stats = ref<{count: number}[]>([]);
+    async function getStatistics() {
+      stats.value = await usePost().getPostsStatistics();
+    }
+    onMounted(() => {
+      getStatistics();
+    })
+
 
 </script>

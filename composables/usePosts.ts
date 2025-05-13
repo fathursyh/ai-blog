@@ -118,6 +118,15 @@ export const usePost = () => {
         }
         showAlert();
     };
+    const getPostsStatistics = async () => {
+        // TODO: total views statistic
+        return Promise.all([
+            await $supabase.from('posts').select("*", { count: "estimated", head: true }).eq('published', true),
+            await $supabase.from('posts').select("*", { count: "estimated", head: true }).eq('published', false),
+        ]).then((data) => {
+            return data;
+        }).catch(error => error);
+    }
     
     // fetch user posts
     const getAllUserPosts = async (page: number, search = "") => {
@@ -149,6 +158,7 @@ export const usePost = () => {
         createNewPost,
         deletePost,
         getUserRecentPost,
+        getPostsStatistics,
         publishPost,
         getAllUserPosts,
     };

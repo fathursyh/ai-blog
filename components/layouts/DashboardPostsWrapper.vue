@@ -19,15 +19,15 @@
                     </thead>
                     <tbody class="text-gray-700 text-sm">
                         <tr v-for="(post, index) in posts" :key="post.id" class="hover:bg-gray-50">
-                            <td class="px-4 py-3 border-b border-gray-300">{{ (index + 1) + 10 * (page - 1) }}</td>
-                            <td class="px-4 py-3 border-b border-gray-300 hover:text-blue-600 hover:underline underline-offset-2"><NuxtLink :to="`/posts/${post.slug}`">{{ post.title }}</NuxtLink></td>
-                            <td class="px-4 py-3 border-b border-gray-300">{{ new Date(post.created_at).toLocaleDateString('en-EN', {dateStyle: 'short'}) }}</td>
-                            <td class="px-4 py-3 border-b border-gray-300">{{ new Date(post.updated_at).toLocaleDateString('en-EN', {dateStyle: 'short'}) }}</td>
-                            <td class="px-4 py-3 border-b border-gray-300">{{ post.tags_id.name }}</td>
-                            <td class="px-4 py-3 border-b border-gray-300">
+                            <td class="px-4 py-1.5 border-b border-gray-300">{{ (index + 1) + 10 * (page - 1) }}</td>
+                            <td class="px-4 py-1.5 border-b border-gray-300 hover:text-blue-600 hover:underline underline-offset-2"><NuxtLink :to="`/posts/${post.slug}`">{{ post.title }}</NuxtLink></td>
+                            <td class="px-4 py-1.5 border-b border-gray-300">{{ new Date(post.created_at).toLocaleDateString('en-EN', {dateStyle: 'short'}) }}</td>
+                            <td class="px-4 py-1.5 border-b border-gray-300">{{ new Date(post.updated_at).toLocaleDateString('en-EN', {dateStyle: 'short'}) }}</td>
+                            <td class="px-4 py-1.5 border-b border-gray-300">{{ post.tags_id.name }}</td>
+                            <td class="px-4 py-1.5 border-b border-gray-300">
                                 <span class="inline-block px-2 py-1 text-xs font-medium rounded" :class="[post.published ? 'text-green-700 bg-green-100' : 'text-gray-700 bg-gray-100']">{{ post.published ? 'Published' : 'Draft' }}</span>
                             </td>
-                            <td class="px-4 py-3 border-b border-gray-300 flex gap-2">
+                            <td class="px-4 py-1.5 border-b border-gray-300 flex gap-2">
                                  <UIButton class="w-10 h-10 bg-green-500!" @click="handlePublish(post.id, post.published)">
                                     <Icon name="lucide:file-chart-column-increasing" class="text-lg" />
                                  </UIButton>
