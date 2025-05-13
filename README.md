@@ -1,6 +1,14 @@
-# Nuxt Minimal Starter
+# AI-Powered Blog App
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This is my blog platform website. It uses AI to help writer generate ideas and posts.
+
+The project is live at : [https://something.vercel.app]('')
+
+
+The stacks are :
+- Nuxt Framework ( [Nuxt guide]('https://nuxt.com/docs/guide') )
+- Supabase
+- Supabase Storage
 
 ## Setup
 
@@ -24,6 +32,7 @@ bun install
 
 Start the development server on `http://localhost:3000`:
 
+
 ```bash
 # npm
 npm run dev
@@ -38,38 +47,25 @@ yarn dev
 bun run dev
 ```
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+## Testing and Demo
+```
+Email: test@gmail.com
+Password: test12345
 ```
 
-Locally preview production build:
+You can also create your own account here. After your account has been created, you will be immediately redirected to the `/dashboard` page.
 
-```bash
-# npm
-npm run preview
+> dashboard
 
-# pnpm
-pnpm preview
+Dashboard has **4** pages, which are :
+- dashboard home
+- posts
+- account
+- settings
 
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Create your post
+1. Click the floating button on right bottom side of the dashboard pages.
+2. Create your title
+3. Select your post tag
+4. Optionally, you can add header image for your post.
+5. Lastly, start writing your post's body to your heart contents.
