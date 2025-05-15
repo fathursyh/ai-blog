@@ -90,7 +90,7 @@
         isLoading.value = true;
         try {
           await register(inputData.email, inputData.fullName, inputData.password, inputData.confirmPassword);
-          showAlert();
+          showAlert(200, 'Register is succesfull!');
           await navigateTo({path: '/dashboard'});
 
         } catch(err) {

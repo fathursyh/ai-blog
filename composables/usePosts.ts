@@ -44,7 +44,8 @@ export const usePost = () => {
         const offset = (page - 1) * 9;
         const { data, error } = await $supabase
             .from("posts")
-            .select("*, tags_id (name), user_id (name, occupation)")
+            .select("*, tags_id (name), user_id (name, occupation)").
+            eq('published', true)
             .ilike("title", `%${search}%`)
             .order("created_at", { ascending: false })
             .range(offset, offset + 8);
@@ -53,13 +54,13 @@ export const usePost = () => {
     };
 
     const getRecentPosts = async () => {
-        const { data, error } = await $supabase.from("posts").select("*, tags_id (id, name), user_id (name, occupation)").order("created_at", { ascending: false }).limit(6);
+        const { data, error } = await $supabase.from("posts").select("*, tags_id (id, name), user_id (name, occupation)").eq('published', true).order("created_at", { ascending: false }).limit(6);
         if (error) return;
         recentPosts.value = data;
     };
 
     const getPostDetail = async (slug: string) => {
-        const { data, error } = await $supabase.from("posts").select("*, tags_id (id, name), user_id (name, occupation)").eq("slug", slug).single();
+        const { data, error } = await $supabase.from("posts").select("*, tags_id (id, name), user_id (name, occupation)").eq("slug", slug).eq('published', true).single();
         if (error) throw showError({ statusCode: 404, message: "Post not found." });
         data.image_url = $supabase.storage.from("header-image").getPublicUrl(data.image_url).data.publicUrl;
         postDetail.value = data;
@@ -76,7 +77,7 @@ export const usePost = () => {
                 if (error) throw error;
                 imageUrl = data?.path;
             }
-            // ! edit also here
+            // ? edit also here
             const { error } = await $supabase.from("posts").upsert(
                 {
                     ...newPost.value,
@@ -113,10 +114,10 @@ export const usePost = () => {
     const publishPost = async (id: string, isPublished: boolean) => {
         const { error } = await $supabase.from("posts").update({ published: !isPublished }).eq("id", id);
         if (error) {
-            alert(error);
+            showAlert(400, "Something's wrong!");
             return;
         }
-        showAlert();
+        showAlert(200, 'Post has been published!');
     };
     const getPostsStatistics = async () => {
         // TODO: total views statistic

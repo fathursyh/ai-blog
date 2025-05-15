@@ -93,7 +93,7 @@
             return;
         };
         isDirty.value = false;
-        showAlert();
+        showAlert(200, 'Post succesfully created!');
         return window.location.assign('/dashboard');
     }
 

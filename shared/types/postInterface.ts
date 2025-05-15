@@ -13,6 +13,6 @@ export interface PostInterface {
         id: number,
         name: string
     },
-    image_url: string,
+    image_url: string | null,
     published: boolean
 }

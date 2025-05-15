@@ -35,7 +35,7 @@
                 <!-- other posts -->
                 <div class="mt-8 lg:w-1/4 lg:mt-0 lg:px-6 space-y-4 divide-y divide-dashed">
                     <div v-for="item in posts" :key="item.id">
-                        <h3 class="text-blue-500 capitalize">{{ item.tags_id?.name }}</h3>
+                        <h3 class="text-blue-500 capitalize text-sm">{{ item.tags_id?.name }}</h3>
 
                         <NuxtLink :to="'/posts/' + item.slug" class="block font-medium text-gray-500 hover:underline hover:text-gray-700 mb-4 line-clamp-2">
                             {{ item.title }}

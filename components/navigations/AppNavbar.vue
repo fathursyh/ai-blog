@@ -139,11 +139,22 @@
             </li>
             <li>
               <a
+                v-show="useAuth().user.value === null"
                 href="/posts"
                 aria-label="Sign in"
                 title="Sign in"
                 class="font-medium tracking-wide text-blue-700 transition-colors duration-200 hover:text-teal-accent-400"
                 >Sign in</a
+              >
+            </li>
+            <li>
+              <a
+                v-show="useAuth().user.value !== null"
+                href="/dashboard"
+                aria-label="Dashboard"
+                title="Dashboard"
+                class="font-medium tracking-wide text-blue-700 transition-colors duration-200 hover:text-teal-accent-400"
+                >Dashboard</a
               >
             </li>
                   </ul>

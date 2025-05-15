@@ -45,7 +45,7 @@
         try {
             const data = await login(inputData.email, inputData.password);
             if (data) {
-                showAlert();
+                showAlert(200, 'Login is succesfull!');
                 return navigateTo({path: '/dashboard'});
               
             }
@@ -53,6 +53,7 @@
             console.log(err);
             errorLogin.value = true;
             isLoading.value = false;
+            showAlert(400, 'Login is failed!');
             return;
         }
     }

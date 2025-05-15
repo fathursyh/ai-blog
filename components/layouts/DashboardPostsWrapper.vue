@@ -1,7 +1,7 @@
 <template>
             <div class="max-w-7xl mx-auto">
                 
-            <div v-if="isLoading" class="min-w-full h-[50vh] bg-white grid grid-rows-10 gap-2 animate-pulse">
+            <div v-if="isLoading" class="min-w-full h-[70vh] bg-white grid grid-rows-10 gap-1 animate-pulse">
                 <span v-for="item in 10" :key="item" class="bg-gray-300" />
             </div>
             <div v-if="!isLoading && posts.length > 0" class="overflow-x-auto shadow">

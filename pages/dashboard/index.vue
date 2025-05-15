@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen w-full 2xl:max-w-screen-xl mx-auto p-4 lg:p-12 pb-24">
+  <div class="min-h-screen w-full 2xl:max-w-screen-xl mx-auto p-4 pt-14 lg:p-12 pb-24">
     <!-- Header -->
     <div class="mb-6">
       <h1 class="text-3xl font-semibold text-gray-800">Your Dashboard</h1>
