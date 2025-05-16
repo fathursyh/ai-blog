@@ -10,6 +10,6 @@
 
 <script setup lang="ts">
     definePageMeta({
-    // middleware: 'before-page'
+        middleware: 'before-page'
     });
 </script>
