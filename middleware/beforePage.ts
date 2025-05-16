@@ -1,9 +1,13 @@
 export default defineNuxtRouteMiddleware((to, _) => {
-    if (to.path === "/posts" && !to.query.page) {
-        return navigateTo({ path: "/posts", query: { page: "1" } });
+    if (to.path === "/posts") {
+        if (to.query.page === undefined) {
+            return navigateTo({ path: "/posts", query: { page: "1" } });
+        }
     }
-    if (to.path === "/dashboard/posts" && !to.query.page) {
-        return navigateTo({ path: "/dashboard/posts", query: { page: "1" } });
+    if (to.path === "/dashboard/posts") {
+          if (to.query.page === undefined) {
+              return navigateTo({ path: "/dashboard/posts", query: { page: "1" } });
+        }
     }
     if (to.path === "/login") {
         if (useAuth().user.value !== null) {
