@@ -121,7 +121,7 @@
                   <ul class="space-y-4">
             <li>
               <NuxtLink
-                href="/"
+                to="/"
                 aria-label="Home"
                 title="Home"
                 class="font-medium tracking-wide text-gray-800 transition-colors duration-200 hover:text-teal-accent-400"
@@ -130,7 +130,7 @@
             </li>
             <li>
               <NuxtLink
-                href="/posts"
+                to="/posts"
                 aria-label="Blogs"
                 title="Blogs"
                 class="font-medium tracking-wide text-gray-800 transition-colors duration-200 hover:text-teal-accent-400"
@@ -140,7 +140,7 @@
             <li>
               <NuxtLink
                 v-show="useAuth().user.value === null"
-                href="/posts"
+                to="/login"
                 aria-label="Sign in"
                 title="Sign in"
                 class="font-medium tracking-wide text-blue-700 transition-colors duration-200 hover:text-teal-accent-400"
@@ -150,7 +150,7 @@
             <li>
               <NuxtLink
                 v-show="useAuth().user.value !== null"
-                href="/dashboard"
+                to="/dashboard"
                 aria-label="Dashboard"
                 title="Dashboard"
                 class="font-medium tracking-wide text-blue-700 transition-colors duration-200 hover:text-teal-accent-400"
