@@ -87,7 +87,7 @@
               <div class="p-5 bg-white border rounded shadow-sm">
                 <div class="flex items-center justify-between mb-4">
                   <div>
-                    <a
+                    <NuxtLink
                       href="/"
                       aria-label="InkCraft"
                       title="InkCraft"
@@ -99,7 +99,7 @@
                         class="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase"
                         >InkCraft</span
                       >
-                    </a>
+                    </NuxtLink>
                   </div>
                   <div>
                     <button
@@ -120,41 +120,41 @@
                 <nav>
                   <ul class="space-y-4">
             <li>
-              <a
+              <NuxtLink
                 href="/"
                 aria-label="Home"
                 title="Home"
                 class="font-medium tracking-wide text-gray-800 transition-colors duration-200 hover:text-teal-accent-400"
-                >Home</a
+                >Home</NuxtLink
               >
             </li>
             <li>
-              <a
+              <NuxtLink
                 href="/posts"
                 aria-label="Blogs"
                 title="Blogs"
                 class="font-medium tracking-wide text-gray-800 transition-colors duration-200 hover:text-teal-accent-400"
-                >Blogs</a
+                >Blogs</NuxtLink
               >
             </li>
             <li>
-              <a
+              <NuxtLink
                 v-show="useAuth().user.value === null"
                 href="/posts"
                 aria-label="Sign in"
                 title="Sign in"
                 class="font-medium tracking-wide text-blue-700 transition-colors duration-200 hover:text-teal-accent-400"
-                >Sign in</a
+                >Sign in</NuxtLink
               >
             </li>
             <li>
-              <a
+              <NuxtLink
                 v-show="useAuth().user.value !== null"
                 href="/dashboard"
                 aria-label="Dashboard"
                 title="Dashboard"
                 class="font-medium tracking-wide text-blue-700 transition-colors duration-200 hover:text-teal-accent-400"
-                >Dashboard</a
+                >Dashboard</NuxtLink
               >
             </li>
                   </ul>
