@@ -64,7 +64,8 @@ export const usePost = () => {
     const getPostDetail = async (slug: string) => {
         const { data, error } = await $supabase.from("posts").select("*, tags_id (id, name), user_id (name, occupation)").eq("slug", slug).eq('published', true).single();
         if (error) throw showError({ statusCode: 404, message: "Post not found." });
-        data.image_url = $supabase.storage.from("header-image").getPublicUrl(data.image_url).data.publicUrl;
+        console.log(data.image_url)
+        data.image_url = data.image_url === null ? null : $supabase.storage.from("header-image").getPublicUrl(data.image_url).data.publicUrl;
         postDetail.value = data;
     };
 
@@ -119,7 +120,7 @@ export const usePost = () => {
             showAlert(400, "Something's wrong!");
             return;
         }
-        showAlert(200, 'Post has been published!');
+        showAlert(200, 'Post visibility updated!');
     };
     const getPostsStatistics = async () => {
         // TODO: total views statistic

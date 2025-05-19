@@ -6,7 +6,8 @@
             <main class="lg:flex-1">
                 <article class="bg-white shadow rounded-lg p-6 min-h-[78.2vh]">
                     <img
-                        :src="post?.image_url"
+                        v-if="post?.image_url !== null"
+                        :src="post?.image_url!"
                         alt="Blog Post Image"
                         class="rounded-lg w-full h-64 object-contain mb-6"
                     >
@@ -41,7 +42,6 @@
                                 <span class="tag">Responsive</span>
                             </div>
                         </li>
-
                     </ul>
                 </div>
             </aside>
