@@ -34,13 +34,16 @@
                                  <UIButton class="w-10 h-10" @click="navigateTo({path: '/dashboard/posts/editor', query: {edit: post.slug}})">
                                     <Icon name="lucide:pencil-line" class="text-lg" />
                                  </UIButton>
-                                 <UIButton class="w-10 h-10 bg-red-600!" @click="deletePost(post.id, post.image_url)">
+                                 <UIButton class="w-10 h-10 bg-red-600!" @click="deletePost(post.id, post.image_url!)">
                                     <Icon name="lucide:trash" class="text-lg" />
                                  </UIButton>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div v-else class="min-h-[50vh] w-full grid place-items-center font-medium">
+                No posts.
             </div>
         </div>
 </template>

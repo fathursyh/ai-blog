@@ -29,8 +29,10 @@ export const usePost = () => {
     const userPosts = useState<PostInterface[]>("user-posts", () => []);
 
     // fetching section
-    const getPageCount = async (search = "") => {
-        const { count, error } = await $supabase.from("posts").select("*", { count: "estimated", head: true }).ilike("body", `%${search}%`);
+    const getPageCount = async (search = "", id = '') => {
+        const { count, error } = id === '' ?
+        await $supabase.from("posts").select("*", { count: "estimated", head: true }).ilike("body", `%${search}%`):
+        await $supabase.from("posts").select("*", { count: "estimated", head: true }).ilike("body", `%${search}%`).eq('user_id', id);
         if (error) pageCount.value = 1;
         if (count! < 9) {
             pageCount.value = 1;
@@ -121,9 +123,10 @@ export const usePost = () => {
     };
     const getPostsStatistics = async () => {
         // TODO: total views statistic
+        const user = JSON.parse(localStorage.getItem("sb-supabase")!)?.user;
         return Promise.all([
-            await $supabase.from('posts').select("*", { count: "estimated", head: true }).eq('published', true),
-            await $supabase.from('posts').select("*", { count: "estimated", head: true }).eq('published', false),
+            await $supabase.from('posts').select("*", { count: "estimated", head: true }).eq('published', true).eq('user_id', user.id),
+            await $supabase.from('posts').select("*", { count: "estimated", head: true }).eq('published', false).eq('user_id', user.id),
         ]).then((data) => {
             return data;
         }).catch(error => error);
@@ -132,7 +135,7 @@ export const usePost = () => {
     // fetch user posts
     const getAllUserPosts = async (page: number, search = "") => {
         const user = JSON.parse(localStorage.getItem("sb-supabase")!)?.user;
-        getPageCount(search);
+        getPageCount(search, user.id);
         const offset = (page - 1) * 10;
         const { data, error } = await $supabase
             .from("posts")

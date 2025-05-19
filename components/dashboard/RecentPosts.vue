@@ -10,7 +10,7 @@
                     </div>
                     <div class="flex gap-4 items-center">
                         <span class="text-sm" :class="[post.published ? 'text-green-600' : 'text-gray-400']">{{ post.published ? 'Published' : 'Draft' }}</span>
-                        <UIDropdownMenu :published="post.published" @on-publish="handlePublish(post.id, post.published)" @on-edit="navigateTo({path: '/dashboard/posts/editor', query: {edit: post.slug}})" @on-delete="deletePost(post.id, post.image_url)"  />
+                        <UIDropdownMenu :published="post.published" @on-publish="handlePublish(post.id, post.published)" @on-edit="navigateTo({path: '/dashboard/posts/editor', query: {edit: post.slug}})" @on-delete="deletePost(post.id, post.image_url!)"  />
                     </div>
                 </div>
             </li>
