@@ -1,7 +1,7 @@
 <template>
     <section class="p-12">
         <h1 class="text-left font-bold text-2xl pb-2 mb-6 border-b border-dashed">Create a new post</h1>
-        <div class="max-w-screen-xl flex gap-4 justify-between">
+        <div class="max-w-screen-xl flex flex-col lg:flex-row gap-4 justify-between">
             <form @submit.prevent="postHandler" @change="isDirty = true">
                 <div class="mb-2">
                     <label for="title" class="block text-sm">Title</label>
@@ -131,7 +131,7 @@
             usePost().newPost.value.slug = usePost().postDetail.value!.slug;
             usePost().newPost.value.tags_id = usePost().postDetail.value!.tags_id.id;
             usePost().newPost.value.body = usePost().postDetail.value!.body!;
-            if (usePost().postDetail.value?.image_url.length === 83) return;
+            if (usePost().postDetail.value?.image_url!.length === 83) return;
             imageUrl.value = usePost().postDetail.value?.image_url;
         }
     });
