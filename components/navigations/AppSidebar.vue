@@ -1,5 +1,5 @@
 <template>
-    <aside class="flex flex-col h-screen px-4 py-8 overflow-y-autoborder-r rtl:border-r-0 rtl:border-l border-gray-700 md:bg-gray-900" :class="[{'fixed md:relative': !show, 'bg-gray-900': show},]" @click="$emit('click-show')">
+    <aside class="flex flex-col h-screen px-4 py-8 overflow-y-autoborder-r rtl:border-r-0 rtl:border-l border-gray-700 md:bg-gray-900 overflow-x-hidden" :class="[{'fixed md:relative': !show, 'bg-gray-900': show},]" @click="$emit('click-show')">
 
     <button class="cursor-pointer w-1/4 group" title="Toggle sidebar">
         <Icon name="lucide:pen-tool" class="text-gray-400 text-xl group-hover:text-blue-500 transition-all duration-200" :class="{'scale-x-[-1]' : !show}" />
