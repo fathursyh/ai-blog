@@ -46,7 +46,7 @@ export const usePost = () => {
         const offset = (page - 1) * 9;
         const { data, error } = await $supabase
             .from("posts")
-            .select("*, tags_id (name), user_id (name, occupation)").
+            .select("*, tags_id (name), user_id (fullName, occupation)").
             eq('published', true)
             .ilike("title", `%${search}%`)
             .order("created_at", { ascending: false })
@@ -56,15 +56,14 @@ export const usePost = () => {
     };
 
     const getRecentPosts = async () => {
-        const { data, error } = await $supabase.from("posts").select("*, tags_id (id, name), user_id (name, occupation)").eq('published', true).order("created_at", { ascending: false }).limit(6);
+        const { data, error } = await $supabase.from("posts").select("*, tags_id (id, name), user_id (fullName, occupation)").eq('published', true).order("created_at", { ascending: false }).limit(6);
         if (error) return;
         recentPosts.value = data;
     };
 
     const getPostDetail = async (slug: string) => {
-        const { data, error } = await $supabase.from("posts").select("*, tags_id (id, name), user_id (name, occupation)").eq("slug", slug).eq('published', true).single();
+        const { data, error } = await $supabase.from("posts").select("*, tags_id (id, name), user_id (fullName, occupation)").eq("slug", slug).eq('published', true).single();
         if (error) throw showError({ statusCode: 404, message: "Post not found." });
-        console.log(data.image_url)
         data.image_url = data.image_url === null ? null : $supabase.storage.from("header-image").getPublicUrl(data.image_url).data.publicUrl;
         postDetail.value = data;
     };
