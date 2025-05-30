@@ -4,17 +4,18 @@
             <div class="w-32 h-32 bg-gray-300 rounded-full grid place-items-center mb-2">
                 <span class="text-2xl font-bold">{{ initials }}</span>
             </div>
-            <p class="text-gray-600 text-base">{{ user.email }}</p>
             <p>{{ user.fullName }}</p>
         </section>
 </template>
 
 <script setup lang="ts">
-    const user = computed(() => {
-        return JSON.parse(localStorage.getItem('sb-supabase')!).user?.user_metadata;
-    });
+    const user = ref(await useAuthor().getAuthorData());
     const initials = computed(()=>{
-        const username = user.value.fullName.split(' ');
+        const username = user.value?.fullName.split(' ');
         return username[0][0] + username[1][0];
     });
+
+    watch([useAlert().isShow], async() => {
+        user.value = await useAuthor().getAuthorData();
+    })
 </script>

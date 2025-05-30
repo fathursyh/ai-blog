@@ -1,12 +1,17 @@
+<script setup lang="ts">
+import { FormType } from '~/shared/types/generalInterfaces';
+
+</script>
+
 <template>
         <section class="rounded-lg border border-gray-400 shadow p-8 col-span-2 lg:col-span-1">
             <h3 class="font-bold mb-4 text-xl">Change Settings</h3>
             <ul>
                 <li>
-                    <button>Change your name</button>
+                    <button @click="useModal().showModal(FormType.Name)">Change your name</button>
                 </li>
                 <li>
-                    <button>Change your profile photo</button>
+                    <button @click="useModal().showModal(FormType.Photo)">Change your profile photo</button>
                 </li>
                 <li>
                     <button>Change your job</button>
