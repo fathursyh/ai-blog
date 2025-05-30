@@ -1,7 +1,8 @@
 export const useAuthor = () => {
     const { $supabase } = useNuxtApp();
     const getAuthorData = async() => {
-        return (await $supabase.from('author').select().eq('id', useAuth().user.value?.id).single()).data;
+        const user = (await $supabase.from('author').select().eq('id', useAuth().user.value?.id).single()).data;
+        sessionStorage.setItem('user', JSON.stringify(user));
     };
 
     const changeName = async(name: string) => {
@@ -10,8 +11,15 @@ export const useAuthor = () => {
         return true;
     };
 
+    const changeJob = async(occupation: string) => {
+        const { error } = await $supabase.from("author").update({ occupation: occupation }).eq("id", useAuth().user.value?.id);
+        if (error) return false;
+        return true;
+    }
+
     return {
         getAuthorData,
         changeName,
+        changeJob,
     };
 };

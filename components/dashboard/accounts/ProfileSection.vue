@@ -5,17 +5,22 @@
                 <span class="text-2xl font-bold">{{ initials }}</span>
             </div>
             <p>{{ user.fullName }}</p>
+            <p class="text-sm text-gray-600">{{ user.occupation }}</p>
         </section>
 </template>
 
 <script setup lang="ts">
-    const user = ref(await useAuthor().getAuthorData());
+    import type { AuthorType } from '~/shared/types/generalInterfaces';
+
+    const user = ref<AuthorType>(await JSON.parse(sessionStorage.getItem('user')!));
     const initials = computed(()=>{
         const username = user.value?.fullName.split(' ');
         return username[0][0] + username[1][0];
     });
 
     watch([useAlert().isShow], async() => {
-        user.value = await useAuthor().getAuthorData();
+        await useAuthor().getAuthorData();
+        user.value = await JSON.parse(sessionStorage.getItem('user')!)
+        
     })
 </script>

@@ -19,6 +19,7 @@ export const useAuth = () => {
     });
     if (error) throw error;
     user.value = data.user;
+    useAuthor().getAuthorData();
     setCookieExpiry();
     logoutTimer(data.session!.expires_in * 1000);
     return data;
@@ -33,6 +34,7 @@ export const useAuth = () => {
     if (error) throw error
     user.value = data.user;
     setCookieExpiry();
+    useAuthor().getAuthorData();
     logoutTimer(data.session.expires_in * 1000);
     return data;
   };
@@ -60,6 +62,7 @@ export const useAuth = () => {
     const {data} = await $supabase.auth.setSession({access_token: persistedUser.access_token, refresh_token: persistedUser.refresh_token});
     setCookieExpiry();
     user.value = data.user;
+    useAuthor().getAuthorData();
     logoutTimer(data.session!.expires_in! * 1000);
   };
 

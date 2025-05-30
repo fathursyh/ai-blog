@@ -8,13 +8,10 @@ import { FormType } from '~/shared/types/generalInterfaces';
             <h3 class="font-bold mb-4 text-xl">Change Settings</h3>
             <ul>
                 <li>
-                    <button @click="useModal().showModal(FormType.Name)">Change your name</button>
+                    <button @click="useModal().showModal(FormType.Name)">Change your detail</button>
                 </li>
                 <li>
                     <button @click="useModal().showModal(FormType.Photo)">Change your profile photo</button>
-                </li>
-                <li>
-                    <button>Change your job</button>
                 </li>
                 <li>
                     <button>Change your password</button>

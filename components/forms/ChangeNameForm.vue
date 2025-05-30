@@ -1,18 +1,26 @@
 <template>
     <form class="flex flex-col items-center gap-4" @submit.prevent="formHandler">
-        <h5 class="text-xl font-semibold">Change your name</h5>
+        <h5 class="text-xl font-semibold">Change your detail</h5>
         <input id="name" v-model.trim="name" class="border rounded p-2" type="text">
-        <UIButton class="w-32 disabled:cursor-not-allowed!" :disabled="name === defName">Save</UIButton>
+        <input id="name" v-model.trim="job" class="border rounded p-2" type="text">
+        <UIButton class="w-32">Save</UIButton>
     </form>
 </template>
 
 <script setup lang="ts">
-    const name = ref(await useAuthor().getAuthorData().then(data => data?.fullName));
+    const name = ref(await JSON.parse(sessionStorage.getItem('user')!).fullName);
+    const job = ref(await JSON.parse(sessionStorage.getItem('user')!).occupation);
     const defName = name.value;
+    const defJob = job.value;
     async function formHandler() {
-        const res = await useAuthor().changeName(name.value);
-        if(!res) showAlert(400, 'Failed to change your name!');
-        showAlert(200, 'Success to change your name!');
+        if (name.value === defName && job.value === defJob) {
+            useModal().isShow.value = false;
+            return;
+        }
+        const [res1, res2] = await Promise.all([useAuthor().changeName(name.value), useAuthor().changeJob(job.value)]);
+        if(!res1) showAlert(400, 'Failed to change your name!');
+        if(!res2) showAlert(400, 'Failed to change your job!');
+        showAlert(200, 'Changes success!');
         useModal().isShow.value = false;
     }
 
