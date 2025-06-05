@@ -14,10 +14,10 @@ import { FormType } from '~/shared/types/generalInterfaces';
                     <button @click="useModal().showModal(FormType.Photo)">Change your profile photo</button>
                 </li>
                 <li>
-                    <button>Change your password</button>
+                    <button @click="useModal().showModal(FormType.Password)">Change your password</button>
                 </li>
                 <li class="mt-1 border-t-2 border-dashed">
-                    <button class="text-red-600">Delete your account</button>
+                    <button class="text-red-600" onclick="alert('YOU CAN\'T DELETE YOUR ACCOUNT! 😈')">Delete your account</button>
                 </li>
             </ul>
         </section>

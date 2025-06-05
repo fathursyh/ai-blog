@@ -1,6 +1,7 @@
 export enum FormType {
     Name = 'name',
-    Photo = 'photo'
+    Photo = 'photo',
+    Password = 'password'
 }
 
 export type AuthorType = {

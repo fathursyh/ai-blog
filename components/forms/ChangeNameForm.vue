@@ -1,8 +1,8 @@
 <template>
     <form class="flex flex-col items-center gap-4" @submit.prevent="formHandler">
         <h5 class="text-xl font-semibold">Change your detail</h5>
-        <input id="name" v-model.trim="name" class="border rounded p-2" type="text">
-        <input id="name" v-model.trim="job" class="border rounded p-2" type="text">
+        <input id="name" v-model.trim="name" class="border rounded p-2" type="text" autocomplete="off">
+        <input id="job" v-model.trim="job" class="border rounded p-2" type="text" autocomplete="off">
         <UIButton class="w-32">Save</UIButton>
     </form>
 </template>
