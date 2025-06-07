@@ -25,8 +25,8 @@
     <!-- Chart Placeholder -->
     <div class="bg-white p-6 rounded shadow mb-6">
       <h3 class="text-lg font-semibold text-gray-700 mb-2">Posts Analytics</h3>
-      <div class="h-64 bg-gray-200 rounded flex items-center justify-center text-gray-500">
-        Chart Placeholder (e.g., Views Over Time)
+      <div class="h-64 rounded flex items-center justify-center text-gray-500">
+        <DashboardViewsChart />
       </div>
     </div>
 
