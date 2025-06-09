@@ -103,6 +103,7 @@ export const usePost = () => {
         const {error} = await $supabase.from("posts").delete().eq("id", id);
         if (error) return false;
         await $supabase.storage.from("header-image").remove([`${imageURL}`]);
+        showAlert(200, 'Post has been deleted!');
         return true;
     };
 

@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-  <NuxtImg src="https://images.pexels.com/photos/3228766/pexels-photo-3228766.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260" class="absolute inset-0 object-cover w-full h-[98%]" alt="hero image" />
+  <NuxtImg src="/hero.png" loading="eager" class="absolute inset-0 object-cover w-full h-[98%]" alt="hero image" />
   <div class="relative bg-opacity-75 bg-black/50">
     <svg class="absolute inset-x-0 -bottom-1 text-gray-50" viewBox="0 0 1160 163">
       <path
